@@ -22,17 +22,19 @@ fontsize = 14
 def plotN(city_data, loc_data, log, opt, size_window, center, lag):  # normalizado
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     nn = loc_data.SampleDate.shape[0]
+    mm = city_data.SampleDate.shape[0]
     x = loc_data.SampleDate[:nn - lag]
     name = 'N/PMMoV (influent)'  # + ' (' + str(city_data.Type.unique()[0]) + ')'
-    name_ = 'City-wide N/PMMoV (influent)'
+    name_ = 'City-wide average N/PMMoV (influent)'
     cases = False
+    size_loc=25
     if opt == 'Moving average':
         fig.add_trace(go.Scatter(name=name, mode='lines', x=x,
                                  y=loc_data['NormalizedConc'].rolling(window=size_window, center=center).mean()[ :nn - lag],
                                  line=dict(color='black', width=3)), secondary_y=False, )
 
-        fig.add_trace(go.Scatter(name=name_, mode='lines', x=x,
-                                 y=city_data['NormalizedConc'].rolling(window=size_window, center=center).mean()[:nn - lag], line=dict(color='gray', width=3)), secondary_y=False, )
+        fig.add_trace(go.Scatter(name=name_, mode='lines', x=city_data.SampleDate[:mm - lag],
+                                 y=city_data['NormalizedConc'].rolling(window=size_window, center=center).mean()[:mm - lag]/size_loc, line=dict(color='gray', width=3)), secondary_y=False, )
         if cases:
             fig.add_trace(go.Scatter(name='Cases', mode='lines', x=x, y=loc_data['positives'].rolling(window=size_window, center=center).mean()[lag:],
                                      line=dict(color='gray', width=3)), secondary_y=True, )
@@ -41,19 +43,16 @@ def plotN(city_data, loc_data, log, opt, size_window, center, lag):  # normaliza
         fig.add_trace(go.Scatter(name=name, mode='lines', x=x,
                                  y=loc_data['NormalizedConc'][:nn - lag].rolling(window=size_window, center=center).apply(lambda x: trim_mean(x, 1 / size_window)),
                                  line=dict(color='black', width=3)), secondary_y=False, )
-        fig.add_trace(go.Scatter(name=name_, mode='lines', x=x, y=city_data['NormalizedConc'][:nn - lag].rolling(window=size_window, center=center).apply(
-                                     lambda x: trim_mean(x, 1 / size_window)), line=dict(color='black', width=3)), secondary_y=False, )
+        fig.add_trace(go.Scatter(name=name_, mode='lines', x=city_data.SampleDate[:mm - lag], y=city_data['NormalizedConc'][:mm - lag].rolling(window=size_window, center=center).apply(
+                                     lambda x: trim_mean(x, 1 / size_window))/size_loc, line=dict(color='gray', width=3)), secondary_y=False, )
         if cases:
             fig.add_trace(go.Scatter(name='Cases', mode='lines', x=x, y=loc_data['positives'][lag:].rolling(window=size_window, center=center).apply(
                                          lambda x: trim_mean(x, 1 / size_window)), line=dict(color='gray', width=3)), secondary_y=True, )
     else:
-        # if not cases_county:
-        #    fig.add_trace(go.Scatter(name='Imputed', mode='markers', x=x, y=city_data['NormalizedConc'][:nn - lag],
-        #                         marker=dict(color='orange')), secondary_y=False, )
         fig.add_trace(go.Scatter(name=name, mode='lines+markers', x=x, y=loc_data['NormalizedConc'][:nn - lag],
                                  marker=dict(color='black', size=8), line=dict(color='black', width=3)),
                       secondary_y=False, )
-        fig.add_trace(go.Scatter(name=name_, mode='lines+markers', x=x, y=city_data['NormalizedConc'][:nn - lag],
+        fig.add_trace(go.Scatter(name=name_, mode='lines+markers', x=city_data.SampleDate[:mm - lag], y=city_data['NormalizedConc'][:mm - lag]/size_loc,
                                  marker=dict(color='gray', size=8), line=dict(color='gray', width=3)),
                       secondary_y=False, )
         # city_data['NormalizedConc_crude'][:nn - lag]

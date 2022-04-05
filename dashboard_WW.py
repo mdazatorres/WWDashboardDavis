@@ -15,7 +15,7 @@ from aux_function import is_authenticated, generate_login_block, clean_blocks, l
 st.set_page_config(layout="wide", initial_sidebar_state="auto", page_title=None, page_icon=None)
 
 data_ww_Davis = pd.read_csv('data_ww_Davis_loc.csv', index_col=0)
-data_ww= pd.read_csv('data_ww_cases_full.csv')
+data_ww = pd.read_csv('data_ww_cases_full.csv')
 localities = list(data_ww_Davis.Location.unique())[:-1]
 
 def data_loc(loc):
@@ -43,8 +43,8 @@ def main():
     loc_data = data_loc(loc)
 
     loc_data['SampleDate'] = pd.to_datetime(loc_data['SampleDate'])
-    start_date = loc_data['SampleDate'].min().to_pydatetime()
-    end_date = loc_data['SampleDate'].max().to_pydatetime()
+    start_date = city_data['SampleDate'].min().to_pydatetime()
+    end_date = city_data['SampleDate'].max().to_pydatetime()
 
     st.sidebar.header('PLOT DETAILS')  # --------
     col1, col2 = st.sidebar.columns([1, 0.51])
@@ -67,9 +67,10 @@ def main():
     sl_init, sl_end = col1.slider('', min_value=start_date, max_value=end_date, value=(start_date, end_date),format='MMM DD, YYYY')
 
     loc_data_ = loc_data[(loc_data['SampleDate'] >= sl_init) & (loc_data['SampleDate'] <= sl_end)]
-    city_data_= city_data[(city_data['SampleDate'] >= sl_init) & (city_data['SampleDate'] <= sl_end)]
+    city_data_ = city_data[(city_data['SampleDate'] >= sl_init) & (city_data['SampleDate'] <= sl_end)]
+    #st.write(city_data_)
 
-    fig1 = plotN(city_data, loc_data_, log, smooth, size_window, center, lag=lag)
+    fig1 = plotN(city_data_, loc_data_, log, smooth, size_window, center, lag=lag)
     fig2 = plotPMMoV(loc_data_, log, smooth, size_window, center)
     fig3 = plotN1N2(loc_data_, log, smooth, size_window, center)
 
