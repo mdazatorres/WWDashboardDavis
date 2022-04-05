@@ -12,7 +12,6 @@ from plot_conc import plotN1N2, plotPMMoV, plotN
 from aux_function import is_authenticated, generate_login_block, clean_blocks, login
 
 
-
 st.set_page_config(layout="wide", initial_sidebar_state="auto", page_title=None, page_icon=None)
 
 data_ww_Davis = pd.read_csv('data_ww_Davis_loc.csv', index_col=0)
