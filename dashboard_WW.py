@@ -59,7 +59,7 @@ def main():
 
     log = st.sidebar.checkbox('Log transformation')
     col1, _ = st.sidebar.columns([1, 0.1])
-    lag = col1.slider('Lag', min_value=0, max_value=14)
+    lag =0 # col1.slider('Lag', min_value=0, max_value=14)
 
    #  -------------------- Main -----------------
     col1, _= st.columns([4, 0.1])
