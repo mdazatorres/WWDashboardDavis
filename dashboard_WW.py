@@ -12,12 +12,6 @@ from plot_conc import plotN1N2, plotPMMoV, plotN
 from aux_function import is_authenticated, generate_login_block, clean_blocks, login
 
 
-theme = "dark"
-border_color = "lightgrey"
-repo = f"theming-showcase-{theme}"
-GITHUB_OWNER = "streamlit"
-
-
 
 st.set_page_config(layout="wide", initial_sidebar_state="auto", page_title=None, page_icon=None)
 
