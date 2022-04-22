@@ -33,6 +33,11 @@ city_data = data_city('Davis', data_ww)
 city_data['SampleDate'] = pd.to_datetime(city_data['SampleDate'])
 
 
+pc = st.get_option('theme.primaryColor')
+bc = st.get_option('theme.backgroundColor')
+sbc = st.get_option('theme.secondaryBackgroundColor')
+tc = st.get_option('theme.textColor')
+
 def main():
     with open('styles.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
