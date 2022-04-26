@@ -66,7 +66,7 @@ def plotN(city_data, loc_data, log, opt, size_window, center, lag):  # normaliza
         fig.update_layout(yaxis=dict(title="Log-Scale"))
     if cases:
         fig.update_yaxes(title_text="Cases", secondary_y=True)
-    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_dark",
+    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_white",
                       legend_font_size=14, legend_title_font_size=fontsize)
     fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=0.5))
     fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)'})
@@ -107,7 +107,7 @@ def plotN1N2(city_data, log, opt, size_window, center):
     if log:
         fig.update_yaxes(type="log")
         fig.update_layout(yaxis=dict(title="Logarithmic Scale"))
-    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_dark",
+    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_white",
                       legend_font_size=14, legend_title_font_size=fontsize)
     fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=0.9))
     fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)'})
@@ -142,7 +142,7 @@ def plotPMMoV(city_data, log, opt, size_window, center):
         fig.update_yaxes(type="log")
         fig.update_layout(yaxis=dict(title="Log-Scale"))
     fig.layout.showlegend = True
-    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_dark",
+    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_white",
                       legend_font_size=14, legend_title_font_size=fontsize)
     # fig.update_layout(autosize=False,width=500,height=250, margin=dict(l=0,r=0,b=10,t=10,pad=4),xaxis=dict(title="Date"))
     fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=0.9))
