@@ -1,5 +1,6 @@
 
 /* columnas de abajo*/
+/*
 div.css-1r6slb0.e1tzin5v2 {
     background-color: rgba(224, 224, 224, 0.55);
     border: 1px;
@@ -15,9 +16,11 @@ div.css-o1jpvw.e19lei0e1{
     padding: 1% 1% 1% 1%;
     border-radius: 5px;
 }
+*/
+
 /* Barra derecha*/
 div.css-zbg2rx.e1fqkh3o1{
-    background-color: #E3E2E2;
+    background-color: #6F6F6F;
     border: 1px;
     solid: #ffffff;
     border-radius: 5px;
@@ -43,6 +46,8 @@ div.css-wnm74r.e16fv1kl3{
     font-weight: 400;}
 
 /* columnas dobles relleno*/
+
+/*
 div.css-keje6w.e1tzin5v2{
     background-color: rgba(224, 224, 224, 0.55);
     border: 1px;
@@ -59,6 +64,8 @@ div.css-166thxj.e1tzin5v2{
     border-radius: 5px;
 }
 
+*/
+
 
 /* columna de arriba*/
 /*
@@ -70,3 +77,13 @@ div.css-o1jpvw.e19lei0e1{
     border-radius: 5px;
 }
 */
+
+
+
+div.css-fg4pbf{
+    background-color: #000000;
+    border: 1px;
+    solid: #ffffff;
+    padding: 0.2% 0.2% 0.2% 0.2%;
+    border-radius: 5px;
+}

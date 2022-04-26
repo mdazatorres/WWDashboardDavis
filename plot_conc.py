@@ -31,7 +31,7 @@ def plotN(city_data, loc_data, log, opt, size_window, center, lag):  # normaliza
     if opt == 'Moving average':
         fig.add_trace(go.Scatter(name=name, mode='lines', x=x,
                                  y=loc_data['NormalizedConc'].rolling(window=size_window, center=center).mean()[ :nn - lag],
-                                 line=dict(color='black', width=3)), secondary_y=False, )
+                                 line=dict(color='yellow', width=3)), secondary_y=False, )
 
         fig.add_trace(go.Scatter(name=name_, mode='lines', x=city_data.SampleDate[:mm - lag],
                                  y=city_data['NormalizedConc'].rolling(window=size_window, center=center).mean()[:mm - lag]/size_loc, line=dict(color='gray', width=3)), secondary_y=False, )
@@ -42,7 +42,7 @@ def plotN(city_data, loc_data, log, opt, size_window, center, lag):  # normaliza
     elif opt == 'Trimmed average':  # .apply(lambda x: trim_mean(x, 0.2))
         fig.add_trace(go.Scatter(name=name, mode='lines', x=x,
                                  y=loc_data['NormalizedConc'][:nn - lag].rolling(window=size_window, center=center).apply(lambda x: trim_mean(x, 1 / size_window)),
-                                 line=dict(color='black', width=3)), secondary_y=False, )
+                                 line=dict(color='yellow', width=3)), secondary_y=False, )
         fig.add_trace(go.Scatter(name=name_, mode='lines', x=city_data.SampleDate[:mm - lag], y=city_data['NormalizedConc'][:mm - lag].rolling(window=size_window, center=center).apply(
                                      lambda x: trim_mean(x, 1 / size_window))/size_loc, line=dict(color='gray', width=3)), secondary_y=False, )
         if cases:
@@ -50,7 +50,7 @@ def plotN(city_data, loc_data, log, opt, size_window, center, lag):  # normaliza
                                          lambda x: trim_mean(x, 1 / size_window)), line=dict(color='gray', width=3)), secondary_y=True, )
     else:
         fig.add_trace(go.Scatter(name=name, mode='lines+markers', x=x, y=loc_data['NormalizedConc'][:nn - lag],
-                                 marker=dict(color='black', size=8), line=dict(color='black', width=3)),
+                                 marker=dict(color='yellow', size=8), line=dict(color='black', width=3)),
                       secondary_y=False, )
         fig.add_trace(go.Scatter(name=name_, mode='lines+markers', x=city_data.SampleDate[:mm - lag], y=city_data['NormalizedConc'][:mm - lag]/size_loc,
                                  marker=dict(color='gray', size=8), line=dict(color='gray', width=3)),
@@ -66,7 +66,7 @@ def plotN(city_data, loc_data, log, opt, size_window, center, lag):  # normaliza
         fig.update_layout(yaxis=dict(title="Log-Scale"))
     if cases:
         fig.update_yaxes(title_text="Cases", secondary_y=True)
-    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_white",
+    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_dark",
                       legend_font_size=14, legend_title_font_size=fontsize)
     fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=0.5))
     fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)'})
@@ -75,7 +75,7 @@ def plotN(city_data, loc_data, log, opt, size_window, center, lag):  # normaliza
                       yaxis=dict(title='N/PMMoV'))  # ,xaxis=dict(title="Date"))
     fig.update_layout(font_family="Arial", title_font_family="Arial")
     fig.layout.showlegend = True
-    # fig.update_layout(font_color='white', title_font_color='white')
+    fig.update_layout(font_color='white', title_font_color='white')
 
     return fig
 
@@ -107,14 +107,14 @@ def plotN1N2(city_data, log, opt, size_window, center):
     if log:
         fig.update_yaxes(type="log")
         fig.update_layout(yaxis=dict(title="Logarithmic Scale"))
-    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_white",
+    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_dark",
                       legend_font_size=14, legend_title_font_size=fontsize)
     fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=0.9))
     fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)'})
     fig.update_layout(autosize=False, width=450, height=250, margin=dict(l=0, r=0, b=10, t=10, pad=4),
                       yaxis=dict(title='gc/ml wastewater'))  # ,xaxis=dict(title="Date"))
     fig.update_layout(font_family="Arial", title_font_family="Arial")
-    #fig.update_layout(font_color='white', title_font_color='white')
+    fig.update_layout(font_color='white', title_font_color='white')
     return fig
 
 
@@ -142,14 +142,14 @@ def plotPMMoV(city_data, log, opt, size_window, center):
         fig.update_yaxes(type="log")
         fig.update_layout(yaxis=dict(title="Log-Scale"))
     fig.layout.showlegend = True
-    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_white",
+    fig.update_layout(font=dict(family="sans-serif", size=fontsize, color="black"), template="plotly_dark",
                       legend_font_size=14, legend_title_font_size=fontsize)
     # fig.update_layout(autosize=False,width=500,height=250, margin=dict(l=0,r=0,b=10,t=10,pad=4),xaxis=dict(title="Date"))
     fig.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1, xanchor="right", x=0.9))
     fig.update_layout({'plot_bgcolor': 'rgba(0,0,0,0)', 'paper_bgcolor': 'rgba(0,0,0,0)'})
     fig.update_layout(autosize=False, width=450, height=250, margin=dict(l=0, r=0, b=10, t=10, pad=4), yaxis=dict(title="gc/ml wastewater")) #"gc/ml wastewater"
     fig.update_layout(font_family="Arial", title_font_family="Arial")
-    #fig.update_layout(font_color='white', title_font_color='white')
+    fig.update_layout(font_color='white', title_font_color='white')
     return fig
 
 

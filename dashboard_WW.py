@@ -38,12 +38,18 @@ bc = st.get_option('theme.backgroundColor')
 sbc = st.get_option('theme.secondaryBackgroundColor')
 tc = st.get_option('theme.textColor')
 
+st.markdown(""" <style> .font {font-size:50px ; font-family: 'Source Sans Pro'; color: #FFFFFF;} </style> """, unsafe_allow_html=True)
+st.markdown(""" <style> .font2 {font-size:20px ; font-family: 'Source Sans Pro'; color: #FFFFFF;} </style> """, unsafe_allow_html=True)
+
+
 def main():
     with open('styles.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-    st.header('Neighborhood Wastewater Data')
-    st.sidebar.header('SELECT A LOCATION')  # --------
+
+    st.markdown('<p class="font">Neighborhood Wastewater Data</p>', unsafe_allow_html=True)
+    #st.header('Neighborhood Wastewater Data')
+    st.sidebar.markdown('<p class="font2">SELECT A LOCATION</p>', unsafe_allow_html=True)  # --------('<p class="font">SELECT A LOCATION</p>', unsafe_allow_html=True)
     loc = st.sidebar.selectbox('', localities)
     loc_data = data_loc(loc)
 
@@ -51,8 +57,10 @@ def main():
     start_date = city_data['SampleDate'].min().to_pydatetime()
     end_date = city_data['SampleDate'].max().to_pydatetime()
 
-    st.sidebar.header('PLOT DETAILS')  # --------
+    #st.sidebar.header('PLOT DETAILS')
+    st.sidebar.markdown('<p class="font2">PLOT DETAILS</p>', unsafe_allow_html=True)
     col1, col2 = st.sidebar.columns([1, 0.51])
+    #smooth = col1.selectbox('Smoothing function', ['Trimmed average', 'Moving average', 'None'], index=1)
     smooth = col1.selectbox('Smoothing function', ['Trimmed average', 'Moving average', 'None'], index=1)
 
     if smooth != 'None':
