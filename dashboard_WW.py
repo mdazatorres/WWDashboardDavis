@@ -8,7 +8,7 @@ Created on Tue Feb  8 14:51:08 2022
 import pandas as pd
 import numpy as np
 import streamlit as st
-from plot_conc import plotN1N2, plotPMMoV, plotN
+from plot_conc import plotN1N2, plotPMMoV, plotN, plotN_all
 from aux_function import is_authenticated, generate_login_block, clean_blocks, login
 
 
@@ -52,8 +52,9 @@ def main():
     st.sidebar.markdown('<p class="font2">SELECT A LOCATION</p>', unsafe_allow_html=True)  # --------('<p class="font">SELECT A LOCATION</p>', unsafe_allow_html=True)
     loc = st.sidebar.selectbox('', localities)
     loc_data = data_loc(loc)
-
     loc_data['SampleDate'] = pd.to_datetime(loc_data['SampleDate'])
+    loc_data['NormalizedConc'] = loc_data['N/PMMoV']
+
     start_date = city_data['SampleDate'].min().to_pydatetime()
     end_date = city_data['SampleDate'].max().to_pydatetime()
 
@@ -64,7 +65,7 @@ def main():
     smooth = col1.selectbox('Smoothing function', ['Trimmed average', 'Moving average', 'None'], index=1)
 
     if smooth != 'None':
-        size_window = col2.selectbox('Size window', [5, 7], index=1)
+        size_window = col2.selectbox('Size window', [5, 7,14], index=1)
         center = col1.checkbox('Center')
     else:
         size_window = 0
@@ -86,12 +87,16 @@ def main():
     fig1 = plotN(city_data_, loc_data_, log, smooth, size_window, center, lag=lag)
     fig2 = plotPMMoV(loc_data_, log, smooth, size_window, center)
     fig3 = plotN1N2(loc_data_, log, smooth, size_window, center)
+    fig5 = plotN_all(data_loc,localities, city_data_, log, smooth, size_window, center, sl_init, sl_end, lag=0)
 
     col1.plotly_chart(fig1, use_container_width=True)
+
+    st.plotly_chart(fig5, use_container_width=True)
 
     col1, col2 = st.columns([2, 2])
     col1.plotly_chart(fig2, use_container_width=True)
     col2.plotly_chart(fig3, use_container_width=True)
+
 
     st.markdown(""" <style>[data-testid="stSidebar"][aria-expanded="true"] > div:first-child {width: 280px;}
         [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {width: 280px;margin-left: -300px;}
